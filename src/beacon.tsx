@@ -19,7 +19,9 @@ const client = new DAppClient({ name: 'Piconax',
 					handler: async (syncInfo: P2PPairInfo): Promise<void> => {
 					    /* await defaultEventCallbacks.P2P_LISTEN_FOR_CHANNEL_OPEN(syncInfo) */
 					    console.log('syncInfo', syncInfo)
-					    var win = window.open(`microlleon://open?name=${syncInfo.name}&publicKey=${syncInfo.publicKey}&relayServer=${syncInfo.relayServer}`, '_blank');
+					    console.log(`galleon://beaconRegistration?r=${btoa(JSON.stringify(syncInfo))}`)
+					    var win = window.open(`galleon://beaconRegistration?r=${btoa(JSON.stringify(syncInfo))}`);
+					    // var win = window.open(`microlleon://open?name=${syncInfo.name}&publicKey=${syncInfo.publicKey}&relayServer=${syncInfo.relayServer}`, '_blank');
 					    if (win) {
 						//Browser has allowed it to be opened
 						win.focus();
