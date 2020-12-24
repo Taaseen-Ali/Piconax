@@ -164,8 +164,8 @@ export class ContractCard extends React.Component {
         <input
           value={this.state.amount}
           type="text"
-          name="amount (µtz)"
-          placeholder="Amount"
+          name="amount"
+          placeholder="Amount (µtz)"
           onChange={this.handleChange}
         />
         <input
