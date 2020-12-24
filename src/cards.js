@@ -45,9 +45,9 @@ export class PermissionCard extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    console.log('handleSubmit A', this.state.selectedNet, getNetwork(this.state.selectedNet))
+
     const response = await connect(getNetwork(this.state.selectedNet));
-    console.log('handleSubmit A', response);
+
     this.setState({
       ...this.state,
       account: response.address,
@@ -140,13 +140,14 @@ export class ContractCard extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault();
+
     await send({
       kind: TezosOperationType.TRANSACTION,
       amount: this.state.amount,
       destination: this.state.address,
       parameters: {
         entrypoint: this.state.entrypoint,
-        value: this.state.params,
+        value: JSON.parse(this.state.params),
       },
     });
   }
