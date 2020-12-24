@@ -45,8 +45,9 @@ export class PermissionCard extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault();
+    console.log('handleSubmit A', this.state.selectedNet, getNetwork(this.state.selectedNet))
     const response = await connect(getNetwork(this.state.selectedNet));
-    console.log(response);
+    console.log('handleSubmit A', response);
     this.setState({
       ...this.state,
       account: response.address,
@@ -61,7 +62,7 @@ export class PermissionCard extends React.Component {
         <p>Network: {this.state.network}</p>
         <select value={this.state.value} onChange={this.handleChange}>
           <option value="mainnet">Mainnet</option>
-          <option value="delphinet">Delphinet</option>
+          <option value="testnet">Delphinet</option>
         </select>
         <button className="btn-permission" onClick={this.handleSubmit}>
           Connect to Wallet!

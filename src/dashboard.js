@@ -1,10 +1,16 @@
 import React from "react";
+import { client } from './beacon';
 import { Card, TransactionCard, PermissionCard, ContractCard } from "./cards";
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
   }
+
+  componentDidMount() {
+    const init = async () => await client.init();
+    init();
+}
 
   render() {
     return (
