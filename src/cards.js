@@ -4,7 +4,7 @@ import { NetworkType, TezosOperationType } from "@airgap/beacon-sdk";
 
 function getNetwork(net) {
   const stringToNetwork = {
-    testnet: NetworkType.CARTHAGENET,
+    testnet: "delphinet",
     mainnet: NetworkType.MAINNET,
   };
 
@@ -45,6 +45,8 @@ export class PermissionCard extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault();
+    console.log(this.state.selectedNet)
+    console.log("yuh", getNetwork(this.state.selectedNet))
     const response = await connect(getNetwork(this.state.selectedNet));
     console.log(response);
     this.setState({
