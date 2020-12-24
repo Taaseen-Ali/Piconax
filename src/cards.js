@@ -61,7 +61,7 @@ export class PermissionCard extends React.Component {
         <p>Network: {this.state.network}</p>
         <select value={this.state.value} onChange={this.handleChange}>
           <option value="mainnet">Mainnet</option>
-          <option value="delphinet">Delphinet</option>
+          <option value="testnet">Delphinet</option>
         </select>
         <button className="btn-permission" onClick={this.handleSubmit}>
           Connect to Wallet!
