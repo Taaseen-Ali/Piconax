@@ -178,8 +178,8 @@ export class ContractCard extends React.Component {
         <input
           value={this.state.params}
           type="text"
-          name="params (Micheline)"
-          placeholder="Parameters"
+          name="params"
+          placeholder="Parameters (Micheline)"
           onChange={this.handleChange}
         />
         <br />
