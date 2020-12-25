@@ -45,7 +45,6 @@ export class PermissionCard extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-
     const response = await connect(getNetwork(this.state.selectedNet));
 
     this.setState({
