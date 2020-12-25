@@ -13,19 +13,15 @@ import {
   TezosTransactionOperation,
 } from "@airgap/beacon-sdk";
 
-const client = new DAppClient({
+export const client = new DAppClient({
   name: "Piconax",
   eventHandlers: {
     [BeaconEvent.P2P_LISTEN_FOR_CHANNEL_OPEN]: {
       handler: async (syncInfo): Promise<void> => {
         /* await defaultEventCallbacks.P2P_LISTEN_FOR_CHANNEL_OPEN(syncInfo) */
         console.log("syncInfo", syncInfo);
-        console.log(
-          `galleon://beaconRegistration?r=${btoa(JSON.stringify(syncInfo))}`
-        );
-        var win = window.open(
-          `galleon://beaconRegistration?r=${btoa(JSON.stringify(syncInfo))}`
-        );
+        console.log(`galleon://beaconRegistration?r=${btoa(JSON.stringify(syncInfo))}`);
+        var win = window.open(`galleon://beaconRegistration?r=${btoa(JSON.stringify(syncInfo))}`);
         // var win = window.open(`microlleon://open?name=${syncInfo.name}&publicKey=${syncInfo.publicKey}&relayServer=${syncInfo.relayServer}`, '_blank');
         if (win) {
           //Browser has allowed it to be opened

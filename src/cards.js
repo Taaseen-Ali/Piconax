@@ -4,7 +4,7 @@ import { NetworkType, TezosOperationType } from "@airgap/beacon-sdk";
 
 function getNetwork(net) {
   const stringToNetwork = {
-    testnet: "delphinet",
+    testnet: NetworkType.DELPHINET,
     mainnet: NetworkType.MAINNET,
   };
 
@@ -45,10 +45,8 @@ export class PermissionCard extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state.selectedNet)
-    console.log("yuh", getNetwork(this.state.selectedNet))
     const response = await connect(getNetwork(this.state.selectedNet));
-    console.log(response);
+
     this.setState({
       ...this.state,
       account: response.address,
@@ -141,13 +139,14 @@ export class ContractCard extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault();
+
     await send({
       kind: TezosOperationType.TRANSACTION,
       amount: this.state.amount,
-      destination: this.state.destination,
+      destination: this.state.address,
       parameters: {
         entrypoint: this.state.entrypoint,
-        value: this.state.parameters,
+        value: JSON.parse(this.state.params),
       },
     });
   }
@@ -166,7 +165,7 @@ export class ContractCard extends React.Component {
           value={this.state.amount}
           type="text"
           name="amount"
-          placeholder="Amount"
+          placeholder="Amount (µtz)"
           onChange={this.handleChange}
         />
         <input
@@ -180,7 +179,7 @@ export class ContractCard extends React.Component {
           value={this.state.params}
           type="text"
           name="params"
-          placeholder="Parameters"
+          placeholder="Parameters (Micheline)"
           onChange={this.handleChange}
         />
         <br />
