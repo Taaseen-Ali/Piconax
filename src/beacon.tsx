@@ -13,15 +13,23 @@ import {
   TezosTransactionOperation,
 } from "@airgap/beacon-sdk";
 
+let withQR = false;
 export const client = new DAppClient({
   name: "Piconax",
   eventHandlers: {
     [BeaconEvent.P2P_LISTEN_FOR_CHANNEL_OPEN]: {
       handler: async (syncInfo): Promise<void> => {
-        /* await defaultEventCallbacks.P2P_LISTEN_FOR_CHANNEL_OPEN(syncInfo) */
+        if (withQR) {
+          await defaultEventCallbacks.P2P_LISTEN_FOR_CHANNEL_OPEN(syncInfo);
+          return;
+        }
         console.log("syncInfo", syncInfo);
-        console.log(`galleon://beaconRegistration?r=${btoa(JSON.stringify(syncInfo))}`);
-        var win = window.open(`galleon://beaconRegistration?r=${btoa(JSON.stringify(syncInfo))}`);
+        console.log(
+          `galleon://beaconRegistration?r=${btoa(JSON.stringify(syncInfo))}`
+        );
+        var win = window.open(
+          `galleon://beaconRegistration?r=${btoa(JSON.stringify(syncInfo))}`
+        );
         // var win = window.open(`microlleon://open?name=${syncInfo.name}&publicKey=${syncInfo.publicKey}&relayServer=${syncInfo.relayServer}`, '_blank');
         if (win) {
           //Browser has allowed it to be opened
@@ -34,6 +42,11 @@ export const client = new DAppClient({
     },
   },
 });
+
+export async function showQR(network: NetworkType) {
+  withQR = true;
+  await connect(network);
+}
 
 export async function connect(network: NetworkType) {
   const activeAccount = await client.getActiveAccount();
@@ -52,7 +65,7 @@ export async function connect(network: NetworkType) {
     .catch((permissionError: BeaconBaseMessage) =>
       console.error(permissionError)
     );
-
+  withQR = false;
   return permissionResponse;
 }
 
