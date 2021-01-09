@@ -4,7 +4,6 @@ import {
   DAppClient,
   PermissionScope,
   PermissionResponseOutput,
-  P2PPairingRequest,
   PartialTezosTransactionOperation,
   OperationResponseOutput,
   AccountInfo,
@@ -14,11 +13,12 @@ import {
   TezosTransactionOperation,
 } from "@airgap/beacon-sdk";
 
-/* export const client = new DAppClient({
+export const client = new DAppClient({
   name: "Piconax",
   eventHandlers: {
     [BeaconEvent.P2P_LISTEN_FOR_CHANNEL_OPEN]: {
       handler: async (syncInfo): Promise<void> => {
+        /* await defaultEventCallbacks.P2P_LISTEN_FOR_CHANNEL_OPEN(syncInfo) */
         console.log("syncInfo", syncInfo);
         console.log(
           `galleon://beaconRegistration?r=${btoa(JSON.stringify(syncInfo))}`
@@ -34,22 +34,6 @@ import {
           //Browser has blocked it
           alert("Please allow popups for this website");
         }
-      },
-    },
-  },
-}); */
-const client = new DAppClient({
-  name: "My Sample DApp",
-  eventHandlers: {
-    [BeaconEvent.P2P_LISTEN_FOR_CHANNEL_OPEN]: {
-      // Every BeaconEvent can be overriden by passing a handler here.
-      // The default will not be executed anymore. To keep the default,
-      // you will have to call it again.
-      handler: async (syncInfo: P2PPairingRequest): Promise<void> => {
-        console.log("syncInfo", syncInfo);
-        return await defaultEventCallbacks.P2P_LISTEN_FOR_CHANNEL_OPEN(
-          syncInfo
-        ); // Add this if you want to keep the default behaviour.
       },
     },
   },
