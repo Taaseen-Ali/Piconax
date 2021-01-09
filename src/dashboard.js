@@ -1,5 +1,5 @@
 import React from "react";
-import { client } from './beacon';
+import { client } from "./beacon";
 import { Card, TransactionCard, PermissionCard, ContractCard } from "./cards";
 
 class Dashboard extends React.Component {
@@ -10,7 +10,7 @@ class Dashboard extends React.Component {
   componentDidMount() {
     const init = async () => await client.init();
     init();
-}
+  }
 
   render() {
     return (

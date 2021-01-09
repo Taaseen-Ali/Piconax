@@ -13,16 +13,11 @@ import {
   TezosTransactionOperation,
 } from "@airgap/beacon-sdk";
 
-let withQR = false;
 export const client = new DAppClient({
   name: "Piconax",
   eventHandlers: {
     [BeaconEvent.P2P_LISTEN_FOR_CHANNEL_OPEN]: {
       handler: async (syncInfo): Promise<void> => {
-        if (withQR) {
-          await defaultEventCallbacks.P2P_LISTEN_FOR_CHANNEL_OPEN(syncInfo);
-          return;
-        }
         console.log("syncInfo", syncInfo);
         console.log(
           `galleon://beaconRegistration?r=${btoa(JSON.stringify(syncInfo))}`
@@ -43,11 +38,6 @@ export const client = new DAppClient({
   },
 });
 
-export async function showQR(network: NetworkType) {
-  withQR = true;
-  await connect(network);
-}
-
 export async function connect(network: NetworkType) {
   const activeAccount = await client.getActiveAccount();
   if (activeAccount) return activeAccount;
@@ -65,7 +55,7 @@ export async function connect(network: NetworkType) {
     .catch((permissionError: BeaconBaseMessage) =>
       console.error(permissionError)
     );
-  withQR = false;
+
   return permissionResponse;
 }
 

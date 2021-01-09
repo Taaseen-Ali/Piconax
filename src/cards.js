@@ -1,5 +1,5 @@
 import React from "react";
-import { connect, send, showQR } from "./beacon";
+import { connect, send } from "./beacon";
 import { NetworkType, TezosOperationType } from "@airgap/beacon-sdk";
 
 function getNetwork(net) {
@@ -65,12 +65,6 @@ export class PermissionCard extends React.Component {
         </select>
         <button className="btn-permission" onClick={this.handleSubmit}>
           Connect to Wallet!
-        </button>
-        <button
-          className="btn-permission"
-          onClick={() => showQR(getNetwork(this.state.network))}
-        >
-          Show QR
         </button>
         {/* <p id="qr-data"> Beacon QR data will appear here </p> */}
       </Card>
