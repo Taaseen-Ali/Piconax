@@ -7,11 +7,6 @@ class Dashboard extends React.Component {
     super(props);
   }
 
-  componentDidMount() {
-    const init = async () => await client.init();
-    init();
-  }
-
   render() {
     return (
       <div className="Dashboard">
